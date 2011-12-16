@@ -62,7 +62,7 @@ public class FrmManagerEmployee extends javax.swing.JFrame {
         tblManagerEmployee.setName("tblManagerEmployee"); // NOI18N
         jScrollPane1.setViewportView(tblManagerEmployee);
 
-        lblQuanly.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblQuanly.setFont(new java.awt.Font("Tahoma", 0, 36));
         lblQuanly.setForeground(new java.awt.Color(255, 0, 0));
         lblQuanly.setText("Quản Lý Nhân Viên");
         lblQuanly.setName("lblQuanly"); // NOI18N
@@ -78,7 +78,7 @@ public class FrmManagerEmployee extends javax.swing.JFrame {
         });
 
         btnEdit.setForeground(new java.awt.Color(0, 51, 204));
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vn/edu/nuce/lms/image/index.jpg"))); // NOI18N
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vn/edu/nuce/lms/image/edit.png"))); // NOI18N
         btnEdit.setText("Edit");
         btnEdit.setName("btnEdit"); // NOI18N
 
@@ -113,7 +113,7 @@ public class FrmManagerEmployee extends javax.swing.JFrame {
                 .addComponent(btnDelete)
                 .addGap(32, 32, 32)
                 .addComponent(btnSearch)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

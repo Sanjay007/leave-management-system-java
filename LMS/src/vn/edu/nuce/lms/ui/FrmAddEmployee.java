@@ -49,8 +49,8 @@ public class FrmAddEmployee extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtBirthDay = new com.toedter.calendar.JDateChooser();
+        txtJoinDay = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -68,7 +68,7 @@ public class FrmAddEmployee extends javax.swing.JFrame {
         lblEmID.setText("EmID");
         lblEmID.setName("lblEmID"); // NOI18N
 
-        lblEmName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblEmName.setFont(new java.awt.Font("Tahoma", 0, 12));
         lblEmName.setForeground(new java.awt.Color(0, 51, 255));
         lblEmName.setText("EmName");
         lblEmName.setName("lblEmName"); // NOI18N
@@ -78,7 +78,7 @@ public class FrmAddEmployee extends javax.swing.JFrame {
         lblBirthDay.setText("BirthDay");
         lblBirthDay.setName("lblBirthDay"); // NOI18N
 
-        lblLevel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblLevel.setFont(new java.awt.Font("Tahoma", 0, 12));
         lblLevel.setForeground(new java.awt.Color(0, 51, 255));
         lblLevel.setText("Level");
         lblLevel.setName("lblLevel"); // NOI18N
@@ -123,7 +123,7 @@ public class FrmAddEmployee extends javax.swing.JFrame {
         txtDayOfLeave.setForeground(new java.awt.Color(0, 0, 255));
         txtDayOfLeave.setName("txtDayOfLeave"); // NOI18N
 
-        btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12));
         btnAdd.setForeground(new java.awt.Color(0, 0, 255));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vn/edu/nuce/lms/image/add.png"))); // NOI18N
         btnAdd.setText("Add");
@@ -141,7 +141,7 @@ public class FrmAddEmployee extends javax.swing.JFrame {
             }
         });
 
-        btnReset.setFont(new java.awt.Font("Tahoma", 0, 12));
+        btnReset.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnReset.setForeground(new java.awt.Color(0, 0, 255));
         btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vn/edu/nuce/lms/image/refresh.png"))); // NOI18N
         btnReset.setText("Reset");
@@ -152,9 +152,9 @@ public class FrmAddEmployee extends javax.swing.JFrame {
             }
         });
 
-        jDateChooser1.setName("jDateChooser1"); // NOI18N
+        txtBirthDay.setName("txtBirthDay"); // NOI18N
 
-        jDateChooser2.setName("jDateChooser2"); // NOI18N
+        txtJoinDay.setName("txtJoinDay"); // NOI18N
 
         jLabel1.setText("Sex :");
         jLabel1.setName("jLabel1"); // NOI18N
@@ -174,32 +174,21 @@ public class FrmAddEmployee extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblEmID)
-                            .addGap(19, 19, 19))
-                        .addComponent(lblBirthDay))
+                    .addComponent(lblEmID)
                     .addComponent(lblEmName)
+                    .addComponent(lblBirthDay)
                     .addComponent(lblLevel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEmName, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(txtLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(txtBirthDay, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEmName, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(txtEmID, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                                .addComponent(jRadioButton2)
-                                .addGap(36, 36, 36)))))
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addComponent(jRadioButton2)
+                        .addGap(36, 36, 36))
+                    .addComponent(txtEmID, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(103, 103, 103)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
@@ -211,11 +200,11 @@ public class FrmAddEmployee extends javax.swing.JFrame {
                     .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtDayOfLeave, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtJoinDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)))
                 .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
+                .addContainerGap(185, Short.MAX_VALUE)
                 .addComponent(lblAdd)
                 .addGap(181, 181, 181))
             .addGroup(layout.createSequentialGroup()
@@ -253,7 +242,7 @@ public class FrmAddEmployee extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel9))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtJoinDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDayOfLeave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -266,12 +255,12 @@ public class FrmAddEmployee extends javax.swing.JFrame {
                             .addComponent(lblEmName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBirthDay)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblBirthDay))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLevel)
-                            .addComponent(txtLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLevel))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -351,8 +340,6 @@ private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnReset;
     private javax.swing.ButtonGroup buttonGroupSex;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JRadioButton jRadioButton1;
@@ -365,10 +352,12 @@ private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel lblJoinDat;
     private javax.swing.JLabel lblLevel;
     private javax.swing.JLabel lblPhone;
+    private com.toedter.calendar.JDateChooser txtBirthDay;
     private javax.swing.JTextField txtDayOfLeave;
     private javax.swing.JTextField txtEmID;
     private javax.swing.JTextField txtEmName;
     private javax.swing.JTextField txtEmail;
+    private com.toedter.calendar.JDateChooser txtJoinDay;
     private javax.swing.JTextField txtLevel;
     private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables

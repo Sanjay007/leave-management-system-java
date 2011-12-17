@@ -4,12 +4,16 @@
  */
 package vn.edu.nuce.lms.dao;
 
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import vn.edu.nuce.lms.model.Employee;
 
 /**
@@ -21,6 +25,13 @@ public class EmployeeDao extends BaseDao {
      * Get list employees
      * @return List Employee
      */
+    Statement st;
+       DefaultTableModel model;
+    Connection conn;
+   // Statement st;
+    PreparedStatement pstmt;
+    ResultSet rs;
+        BaseDao connect = new BaseDao();
     public List<Employee> getListEmployee() {
         List<Employee> listEmployee = new ArrayList<Employee>();
         Employee employee;
@@ -54,10 +65,50 @@ public class EmployeeDao extends BaseDao {
             throw new RuntimeException(e);
             //dong connection
         } finally {
-            cleanupDatabaseResources(connection, getEmployeeListStm, resultSet);
+           // cleanupDatabaseResources(connection, getEmployeeListStm, resultSet);
         }
         
         return listEmployee;
+    }
+     public void Load(JTable tblManagerEmployee) {
+
+       model = (DefaultTableModel) tblManagerEmployee.getModel();
+        //Xóa dữ liệu trong data Vector object
+        model.getDataVector().removeAllElements();
+        //Cập nhật lại jTable để hiển thị trên màn hình
+       tblManagerEmployee.repaint();
+        try {
+
+            conn = connect.getConnection();
+
+            st = conn.createStatement();
+            String strsql = "SELECT EmId,EmName,EmDayOfBirth,EmLevel,EmEmail,EmPhone,EmJoinDay,EmDayOfLeave from Employee";
+            rs = st.executeQuery(strsql);
+
+            try {
+                //Vector v = null;
+                while (rs.next()) {
+                     Vector v = new Vector();
+                    v.addElement(rs.getInt(1));
+                    v.addElement(rs.getString(2));
+                    v.addElement(rs.getDate(3));
+                    v.addElement(rs.getInt(4));
+                    v.addElement(rs.getString(5));
+                    v.addElement(rs.getString(6));
+                    v.addElement(rs.getDate(7));
+                    v.addElement(rs.getInt(8));
+            
+                    model.addRow(v);
+                }
+                //set lai model cho jtable
+                tblManagerEmployee.setModel(model);
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

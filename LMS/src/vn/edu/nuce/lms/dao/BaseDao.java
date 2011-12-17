@@ -21,16 +21,26 @@ public class BaseDao {
      * @return database connection
      * @throws SQLException if an error occurs getting a connection
      */
-    protected Connection getConnection() throws SQLException {
+
+    static String conStr = "jdbc:sqlserver://localhost;databaseName=MLS";
+    static String userName = "sa";
+    static String passWord = "76478124";
+
+    public static Connection getConnection() {
+        Connection conn = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            conn = DriverManager.getConnection(conStr, userName, passWord);   
+            System.out.println("Connect Successfull!");
+        } 
+        catch (ClassNotFoundException ex) 
+        {
+        } 
+        catch (SQLException ex) 
+        {
         }
-        Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=nhansu", "sa","");
-        connection.setAutoCommit(false);
-        return connection;
+        return conn;
+    }
     }
 
     /**
@@ -39,19 +49,19 @@ public class BaseDao {
      * @param statement statement to close
      * @param resultSet resultSet to close
      */
-    protected void cleanupDatabaseResources(Connection connection, Statement statement, ResultSet resultSet) {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
+//    protected void cleanupDatabaseResources(Connection connection, Statement statement, ResultSet resultSet) {
+//        try {
+//            if (resultSet != null) {
+//                resultSet.close();
+//            }
+//            if (statement != null) {
+//                statement.close();
+//            }
+//            if (connection != null) {
+//                connection.close();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}

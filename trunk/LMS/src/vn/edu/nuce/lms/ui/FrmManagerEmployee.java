@@ -10,15 +10,34 @@
  */
 package vn.edu.nuce.lms.ui;
 
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import vn.edu.nuce.lms.dao.BaseDao;
+import vn.edu.nuce.lms.dao.EmployeeDao;
+
 /**
  *
  * @author Dell
  */
 public class FrmManagerEmployee extends javax.swing.JFrame {
-
+   DefaultTableModel model;
+    Connection conn;
+    Statement st;
+    PreparedStatement pstmt;
+    ResultSet rs;
+    BaseDao connect = new BaseDao();
+    EmployeeDao nhap=new EmployeeDao();
     /** Creates new form FrmManagerEmployee */
     public FrmManagerEmployee() {
         initComponents();
+        model = (DefaultTableModel)tblManagerEmployee.getModel();
+        nhap.Load(tblManagerEmployee);
     }
 
     /** This method is called from within the constructor to
@@ -37,6 +56,8 @@ public class FrmManagerEmployee extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
+        cboSearch = new javax.swing.JComboBox();
+        txtSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,7 +99,7 @@ public class FrmManagerEmployee extends javax.swing.JFrame {
         });
 
         btnEdit.setForeground(new java.awt.Color(0, 51, 204));
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vn/edu/nuce/lms/image/edit.png"))); // NOI18N
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vn/edu/nuce/lms/image/index.jpg"))); // NOI18N
         btnEdit.setText("Edit");
         btnEdit.setName("btnEdit"); // NOI18N
 
@@ -91,48 +112,72 @@ public class FrmManagerEmployee extends javax.swing.JFrame {
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vn/edu/nuce/lms/image/search.png"))); // NOI18N
         btnSearch.setText("Search");
         btnSearch.setName("btnSearch"); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        cboSearch.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cboSearch.setForeground(new java.awt.Color(0, 0, 204));
+        cboSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ID", "Name" }));
+        cboSearch.setName("cboSearch"); // NOI18N
+
+        txtSearch.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtSearch.setForeground(new java.awt.Color(0, 0, 153));
+        txtSearch.setName("txtSearch"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(226, Short.MAX_VALUE)
-                .addComponent(lblQuanly, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(195, 195, 195))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(btnAdd)
-                .addGap(30, 30, 30)
-                .addComponent(btnEdit)
-                .addGap(28, 28, 28)
-                .addComponent(btnDelete)
-                .addGap(32, 32, 32)
-                .addComponent(btnSearch)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(cboSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(47, 47, 47)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(35, 35, 35)
+                            .addComponent(btnSearch))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(190, 190, 190)
+                            .addComponent(lblQuanly, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(btnAdd)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnEdit)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnDelete)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(28, 28, 28)
                 .addComponent(lblQuanly, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-768)/2, (screenSize.height-425)/2, 768, 425);
+        setBounds((screenSize.width-706)/2, (screenSize.height-470)/2, 706, 470);
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -140,6 +185,96 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     FrmAddEmployee frmadd=new FrmAddEmployee();
     frmadd.setVisible(true);
 }//GEN-LAST:event_btnAddActionPerformed
+
+private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+// TODO add your handling code here:
+         //Xóa dữ liệu trong data Vector object
+    model.getDataVector().removeAllElements();
+    //Cập nhật lại jTable để hiển thị trên màn hình
+   tblManagerEmployee.repaint();
+    if (txtSearch.getText().length() == 0) {
+        JOptionPane.showMessageDialog(null, "Dien vao tu khoa can tim!");
+        return;
+    }
+    if (txtSearch.getText().equals("all")) {
+        nhap.Load(tblManagerEmployee);
+    }
+    if (cboSearch.getSelectedItem().toString().equals("ID")) {
+
+        try {
+            conn = connect.getConnection();
+            String strSQL ="SELECT EmId,EmName,EmDayOfBirth,EmLevel,EmEmail,EmPhone,EmJoinDay,EmDayOfLeave from Employee where EmId=?";
+            Vector v = new Vector();
+
+
+            pstmt = conn.prepareStatement(strSQL);
+            pstmt.setString(1, txtSearch.getText());
+            rs = pstmt.executeQuery();
+            try {
+
+                while (rs.next()) {
+                    v = new Vector();
+                    v.addElement(rs.getInt(1));
+                    v.addElement(rs.getString(2));
+                    v.addElement(rs.getDate(3));
+                    v.addElement(rs.getInt(4));
+                    v.addElement(rs.getString(5));
+                    v.addElement(rs.getString(6));
+                    v.addElement(rs.getDate(7));
+                    v.addElement(rs.getInt(8));
+                    model.addRow(v);
+                }
+                //set lai model cho jtable
+                tblManagerEmployee.setModel(model);
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error:" + ex.getMessage());
+            return;
+        }
+    }
+    if (cboSearch.getSelectedItem().toString().equals("Name")) {
+        try {
+            conn = connect.getConnection();
+            String strSQL = "select * from Employee where EmName like ?";
+            Vector v = new Vector();
+
+
+            pstmt = conn.prepareStatement(strSQL);
+            pstmt.setString(1, "%" + txtSearch.getText() + "%");
+            rs = pstmt.executeQuery();
+            try {
+
+                while (rs.next()) {
+                    v = new Vector();
+                    v.addElement(rs.getInt(1));
+                    v.addElement(rs.getString(2));
+                    v.addElement(rs.getDate(3));
+                    v.addElement(rs.getInt(4));
+                    v.addElement(rs.getString(5));
+                    v.addElement(rs.getString(6));
+                    v.addElement(rs.getDate(7));
+                    v.addElement(rs.getInt(8));
+                    model.addRow(v);
+                }
+                //set lai model cho jtable
+                tblManagerEmployee.setModel(model);
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error:" + ex.getMessage());
+            return;
+        }
+    }
+}//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,8 +316,10 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox cboSearch;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblQuanly;
     private javax.swing.JTable tblManagerEmployee;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
